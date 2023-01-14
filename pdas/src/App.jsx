@@ -1,22 +1,16 @@
-import ProfileCard from './ProfileCard';
-import AlexaImage from './images/alexa.png';
-import SiriImage from './images/siri.png';
-import CortanaImage from './images/cortana.png';
+/*
+import 'bulma/css/bulma.css'
+*/
+import './App.css';
+import Counter from './components/Counter/Counter';
+import { RepositoryList } from './components/RepositoryList';
 
 function App() {
-    const title = 'titulo';
-
-
-    return (
-        <div>
-            <div>
-                Personal Digital Assistants
-            </div>
-            <ProfileCard tit="Alexa" handle="@Alexa99" date="02/01/20" imgSrc={AlexaImage}/>
-            <ProfileCard title="Cortana" handle="@Costana2021" imgSrc={CortanaImage}/>
-            <ProfileCard title="Siri" handle="@Siri2000" imgSrc={SiriImage}/>
-        </div>
-    )
+	return (
+		<>
+			<RepositoryList />
+		</>
+	);
 }
 
 export default App;
