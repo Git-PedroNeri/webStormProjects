@@ -1,8 +1,8 @@
 /*
 import 'bulma/css/bulma.css'
 */
+import React from 'react';
 import './App.css';
-import Counter from './components/Counter/Counter';
 import { RepositoryList } from './components/RepositoryList';
 
 function App() {
