@@ -1,8 +1,36 @@
+import { Dashboard } from './components/Dashboard';
+import { Header } from './components/Header';
+import { GlobalStyle } from './styles/global';
+import Modal from 'react-modal';
+import { useState } from 'react';
+import { NewTransactionalModal } from './components/NewTransactionalModal';
+
+Modal.setAppElement('#root');
 
 export function App() {
+	const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] =
+		useState(false);
+
+	function handleOpenNewTransactionModal() {
+		setIsNewTransactionModalOpen(true);
+	}
+
+	function handleCloseTransactionModal() {
+		setIsNewTransactionModalOpen(false);
+	}
+
 	return (
-		<div className="App">
-			<h1>Delorian in alpha centaurus A em 8848</h1>
-		</div>
+		<>
+			<Header onOpenNewTransactionalModal={handleOpenNewTransactionModal} />
+
+			<Dashboard />
+
+			<NewTransactionalModal
+				isOpen={isNewTransactionModalOpen}
+				onRequestClose={handleCloseTransactionModal}
+			/>
+
+			<GlobalStyle />
+		</>
 	);
 }
