@@ -4,7 +4,7 @@ import incomeImg from '../../assets/Tipo=arrow-circle-up-regular.svg';
 import outcomeImg from '../../assets/Tipo=arrow-circle-down-regular.svg';
 import { Container, RadioBox, TransactionalTypeContainer } from './styles';
 import { FormEvent, useState } from 'react';
-import { api } from '../../services/api';
+import { useTransactions } from '../../Hooks/useTransactions';
 
 interface NewTransactionalModalProps {
 	isOpen: boolean;
@@ -15,18 +15,29 @@ export function NewTransactionalModal({
 	isOpen,
 	onRequestClose,
 }: NewTransactionalModalProps) {
+	const { createTransaction } = useTransactions();
+
 	const [title, setTitle] = useState('');
-	const [value, setValue] = useState(0);
+	const [amount, setAmount] = useState(0);
 	const [category, setCategory] = useState('');
 
 	const [type, setType] = useState('deposit');
 
-	function handleCreateNewTransactional(event: FormEvent) {
+	async function resetFileds() {
+		setTitle('');
+		setAmount(0);
+		setCategory('');
+		setType('deposit');
+	}
+
+	async function handleCreateNewTransactional(event: FormEvent) {
 		event.preventDefault();
 
-		const data = { title, value, category };
+		await createTransaction({ title, amount, category, type });
 
-		api.post('/transactions', data);
+		await resetFileds();
+
+		onRequestClose();
 	}
 
 	return (
@@ -52,8 +63,8 @@ export function NewTransactionalModal({
 				/>
 
 				<input
-					onChange={(event) => setValue(Number(event.target.value))}
-					value={value}
+					onChange={(event) => setAmount(Number(event.target.value))}
+					value={amount}
 					type="number"
 					placeholder="Valor"
 				/>
